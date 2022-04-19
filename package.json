@@ -9,7 +9,9 @@
     "package.json",
     "package-lock.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "tsconfig.json",
+    "src"
   ],
   "dependencies": {
     "data-uri-to-buffer": "^4.0.0",
