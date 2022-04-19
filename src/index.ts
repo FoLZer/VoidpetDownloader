@@ -2,13 +2,12 @@ import fetch from "node-fetch";
 
 export async function downloadVoidpetWebsite() {
     const link = "https://voidpet.com"
-    const matches: RegExpExecArray[] = [];
     //parse index html to find _buildManifest.js link
     const {buildManifest, indexLinks} = await parseIndex(link);
     if(!buildManifest || !indexLinks) {
         throw new Error("Could not find buildManifest or indexLinks");
     }
-    matches.push(...indexLinks);
+    const matches: RegExpExecArray[] = indexLinks;
     //download _buildManifest.js
     const buildManifestLink = `${link}/_next/static/${buildManifest}/_buildManifest.js`;
     const buildManifestResponse = await fetch(buildManifestLink);
@@ -27,17 +26,17 @@ export async function downloadVoidpetWebsite() {
     }
     let match;
     while ((match = regex.exec(buildManifestText)) !== null) {
-        if(cont(match[0])) {
+        if(!cont(match[0])) {
             matches.push(match);
         }
     }
     const res: {[fileName: string]: string} = {};
     //download all files and folders
     for (const match of matches) {
-        const fileLink = `${link}/_next/static/${match[1]}/${match[2]}.js`;
+        const fileLink = `${link}/_next/${match[0]}`;
         const fileResponse = await fetch(fileLink);
         const fileText = await fileResponse.text();
-        const fileName = `${match[1]}/${match[2]}.js`;
+        const fileName = `${match[0]}.js`;
         res[fileName] = fileText;
     }
     return res;
