@@ -60,5 +60,10 @@ async function parseIndex(link: string) {
             matches.push(match);
         }
     }
+    const regex3 = /static\/([a-zA-Z0-9-_]+)\/pages\/_app-([a-zA-Z0-9-_]+)\.js/g
+    const match2 = regex3.exec(text);
+    if(match2) {
+        matches.push(match2);
+    }
     return {buildManifest: match ? match[1] : null, indexLinks: matches};
 }
