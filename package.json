@@ -2,7 +2,15 @@
   "name": "voidpetdownloader",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "files": [
+    "out",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "data-uri-to-buffer": "^4.0.0",
     "fetch-blob": "^3.1.5",
@@ -11,9 +19,13 @@
     "node-fetch": "^3.2.3",
     "web-streams-polyfill": "^3.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "tsc",
+    "install": "tsc"
   },
   "author": "FoLZer",
   "license": "GPL-3.0",
